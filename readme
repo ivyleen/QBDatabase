@@ -1,0 +1,26 @@
+QBDatabase is a project based on a technical challenge. 
+
+The main tasks are:
+
+1) Implementation of a small in memory database that can perform Fetching of records
+2) Simple implementation of a Record data structure and collection of Records
+3) Compare the speed of the new implementation with the base implementation (the initial commit)
+
++ Subtasks
+1) Optimize the base (initial commit) FindMatchingRecords function
+2) Add better profiler and unit tests
+3) Fix compiling and style issues with base implementation.
+
+Bonus task:
+1) Dealing with DeleteRecords function and logic
+
+The things that need to be taken into account:
+1) The data can be random (not ordered or contiguous)
+2) The structure of the code can vary from base implementation
+3) Modern and standard C++ idioms should be used
+
+
+The project is created and run on Microsoft Visual Studio 2017 using C++14.
+
+
+ Disclaimer: Do NOT use this code for anything else but evaluation for my application.
