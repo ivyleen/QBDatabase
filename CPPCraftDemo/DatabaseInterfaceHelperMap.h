@@ -65,8 +65,8 @@ struct DatabaseInterfaceHelperMap
 
 	/**
 		QBFindMatchingRecords finds matching records in specified column.
-		@param resourceRecords		the resource record collection we are searching in
-		@param returnRecords		the return record collection populated with the matching records
+		@param resourceRecords	the resource record collection we are searching in
+		@param returnRecords	the return record collection populated with the matching records
 		@param columnName		the column of the search
 		@param matchString		the value we are looking for
 		*/
@@ -76,7 +76,7 @@ struct DatabaseInterfaceHelperMap
 	/**
 		DeleteRecordByID uses erase-remove idiom delete a record in the collection with a given id.
 		@param records			the record collection
-		@param id			the id of the record we are looking for to delete
+		@param id				the id of the record we are looking for to delete
 	*/
 	static void DeleteRecordById(QBRecordCollection &records, uint32_t id);
 }; // DatabaseInterfaceVector
