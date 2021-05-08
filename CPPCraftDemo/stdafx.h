@@ -8,8 +8,10 @@
 #include "targetver.h"
 
 #include <stdio.h>
-#include <tchar.h>
-
-
+//#include <tchar.h>
+#include <iostream>
+#include <algorithm>
+#include <assert.h>
+#include <numeric>
 
 // TODO: reference additional headers your program requires here

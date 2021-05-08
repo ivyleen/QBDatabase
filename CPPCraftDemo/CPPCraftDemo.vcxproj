@@ -139,11 +139,13 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="DatabaseInterfaceHelperVector.h" />
     <ClInclude Include="DatabaseInterfaceHelperMap.h" />
+    <ClInclude Include="DatabaseInterfaceHelperSet.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPPCraftDemo.cpp" />
     <ClCompile Include="DatabaseInterfaceHelperVector.cpp" />
+    <ClCompile Include="DatabaseInterfaceHelperSet.cpp" />
     <ClCompile Include="DatabaseInterfaceHelperMap.cpp" />
     <ClCompile Include="stdafx.cpp">
     <ClCompile Include="Menu.cpp">

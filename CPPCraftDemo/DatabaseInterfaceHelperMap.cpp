@@ -3,8 +3,7 @@
 #include "DatabaseInterfaceHelperMap.h"
 
 #include <utility>
-#include <assert.h>
-#include <algorithm>
+
 
 namespace qbMap
 {
@@ -32,6 +31,29 @@ std::ostream &operator<<(std::ostream &os, const Record &rec)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+std::set<double> DatabaseInterfaceHelperMap::m_times;
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void DatabaseInterfaceHelperMap::PrintStatistics()
+{
+	std::cout << "Container type: ---- Map" << std::endl;
+
+	TimeCollectionType::iterator it = m_times.begin();
+	std::advance(it, m_times.size() / 2);
+	std::cout << "Mean avarage: " << *it << std::endl;
+
+	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.0);
+	std::cout << "Medium avarage: " << static_cast<double>(sum/2) << std::endl;
+
+	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
+
+	std::cout << "Maximum time: " << *m_times.end() << std::endl;
+}
+
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelperMap::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)

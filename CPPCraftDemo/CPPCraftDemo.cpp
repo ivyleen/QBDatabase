@@ -2,10 +2,12 @@
 
 #include "Menu.h"
 
-int main(int argc, _TCHAR *argv[])
+int main(int argc, char *argv[])
 {
 	menu::Menu::FindVectorRecords();
 	menu::Menu::FindMapRecords();
+	menu::Menu::FindSetRecords();
+	menu::Menu::PrintStatistics();
 
 	return 0;
 }

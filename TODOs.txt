@@ -1,0 +1,8 @@
+===============================================================================
+						TODOs in no particular order
+===============================================================================
+
+1. Create a DatabaseInterfaceHelper base class
+2. Put COLUMNs enum class and m_times in the base class
+3. put PrintStatictics in the base class
+4. Better handling of the times inside of the set

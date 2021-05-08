@@ -1,56 +1,38 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
 
 #include <set>
+#include <chrono>
 
 
-namespace qbMap
+// Encapsulation in namespace
+namespace qbSet
 {
 
 /**
-	Represents a noncopyable Record Object
+	Represents a Record Object.
 */
-class Record
+struct QBRecord
 {
-public:
-	Record(const std::string &column1, const long column2, const std::string &column3) :
-		m_column1(column1),
-		m_column2(column2),
-		m_column3(column3)
-	{}
+	uint32_t column0; // unique id column
+	std::string column1;
+	long column2;
+	std::string column3;
 
-	const std::string &GetColumn1() const;
-	long GetColumn2() const;
-	const std::string &GetColumn3() const;
+	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
 
-	// Noncopyable element.
-	Record(const Record &) = delete;
-	Record &operator=(const Record &) = delete;
-
-	// Use default move constructors.
-	Record(Record &&other) = default;
-	Record &operator=(Record &&) = default;
-
-	friend std::ostream &operator<<(std::ostream &os, const Record &rec);
-
-private:
-	std::string		m_column1;
-	long			m_column2;
-	std::string		m_column3;
-
-}; // Record
+}; // QBRecord
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 /*
-	DatabaseInterfaceHelperVector represents interface with static functions for working with QBRecordCollection-s.
+	DatabaseInterfaceHelperSet represents interface with static functions for working with QBRecordCollection-s.
 */
-struct DatabaseInterfaceHelperMap
+struct DatabaseInterfaceHelperSet
 {
-	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS };
+	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 
 	using TimeCollectionType = std::set<double>;
 
@@ -59,10 +41,10 @@ struct DatabaseInterfaceHelperMap
 	*/
 	static TimeCollectionType m_times;
 
-	/*
-		Represents a noncopyable Record Collections type.
+	/**
+		Represents a Record Collections
 	*/
-	using QBRecordCollection = std::unordered_map<uint32_t, Record>;
+	using QBRecordCollection = std::set<QBRecord>;
 
 	/**
 		PrintStatistics prints the mean and medium avarage, minimum and maximum time for every data type.
@@ -94,7 +76,6 @@ struct DatabaseInterfaceHelperMap
 	*/
 	static void DeleteRecordById(QBRecordCollection &records, uint32_t id);
 
-}; // DatabaseInterfaceVector
-
+}; // DatabaseInterfaceHelperSet
 
 } // namespace qb

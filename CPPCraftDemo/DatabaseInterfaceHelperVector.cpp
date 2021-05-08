@@ -1,11 +1,6 @@
 #include "stdafx.h"
 
-#include <algorithm>
-#include <iostream>
-#include <assert.h>
-
 #include "DatabaseInterfaceHelperVector.h"
-
 
 
 namespace qbVector
@@ -16,6 +11,29 @@ bool operator==(const QBRecord &qbRecord, const uint32_t column0) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+std::set<double> DatabaseInterfaceHelperVector::m_times;
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void DatabaseInterfaceHelperVector::PrintStatistics()
+{
+	std::cout << "Container type: ---- Set" << std::endl;
+
+	TimeCollectionType::iterator it = m_times.begin();
+	std::advance(it, m_times.size() / 2);
+	std::cout << "Mean avarage: " << *it << std::endl;
+
+	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.0);
+	std::cout << "Medium avarage: " << static_cast<double>(sum/2) << std::endl;
+
+	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
+
+	std::cout << "Maximum time: " << *m_times.end() << std::endl;
+}
+
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelperVector::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)

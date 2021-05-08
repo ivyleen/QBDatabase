@@ -2,9 +2,8 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
-#include <functional>
 
+#include <set>
 
 // Encapsulation in namespace
 namespace qbVector
@@ -21,6 +20,7 @@ struct QBRecord
 	std::string column3;
 
 	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
+
 }; // QBRecord
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -33,10 +33,22 @@ struct DatabaseInterfaceHelperVector
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 
+	using TimeCollectionType = std::set<double>;
+
+	/**
+		All the unique times for the collection.
+	*/
+	static TimeCollectionType m_times;
+
 	/**
 		Represents a Record Collections
 	*/
 	using QBRecordCollection = std::vector<QBRecord>;
+
+	/**
+		PrintStatistics prints the mean and medium avarage, minimum and maximum time for every data type.
+	*/
+	static void PrintStatistics();
 
 	/**
 		PopulateDummyData is utility to populate a record collection.
@@ -62,6 +74,7 @@ struct DatabaseInterfaceHelperVector
 		@param id				the id of the record we are looking for to delete
 	*/
 	static void DeleteRecordById(QBRecordCollection &records, uint32_t id);
+
 }; // DatabaseInterfaceVector
 
 } // namespace qb
