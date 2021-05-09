@@ -9,14 +9,14 @@ namespace qbSet
 
 bool operator<(const QBRecord &lhs, const QBRecord &rhs)
 {
-	return  lhs->column0 < rhs.column0;
+	return  lhs.m_column0 < rhs.m_column0;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
 {
-	os << "{" << rec.column0 << "} {" << rec.column1 << "} {" << rec.column2 << "} {" << rec.column0 << "}\n";
+	os << "{" << rec.m_column0 << "} {" << rec.m_column1 << "} {" << rec.m_column2 << "} {" << rec.m_column0 << "}\n";
 	return os;
 }
 
@@ -57,9 +57,9 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
-	COLUMNS column, const std::string &matchString)
+	COLUMNS m_column, const std::string &matchString)
 {
-	switch (column)
+	switch (m_column)
 	{
 		case COLUMNS::COLUMN_0:
 		{
@@ -81,7 +81,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 			break;
 		}
 		default:
-			std::cout << "Column id out of range: " << static_cast<int>(column) << std::endl;
+			std::cout << "m_column id out of range: " << static_cast<int>(m_column) << std::endl;
 			assert(true);
 			break;
 	}

@@ -15,10 +15,17 @@ namespace qbSet
 */
 struct QBRecord
 {
-	uint32_t column0; // unique id column
-	std::string column1;
-	long column2;
-	std::string column3;
+	QBRecord(uint32_t column0, std::string column1, long column2, std::string column3) :
+		m_column0(column0),
+		m_column1(column1),
+		m_column2(column2),
+		m_column3(column3)
+	{}
+
+	uint32_t m_column0; // unique id column
+	std::string m_column1;
+	long m_column2;
+	std::string m_column3;
 
 	// This function is used by the std::set to order elements of QBRecord.
 	friend bool operator<(const QBRecord &lhs, const QBRecord &rhs);
