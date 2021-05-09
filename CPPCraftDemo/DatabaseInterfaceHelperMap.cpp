@@ -33,12 +33,12 @@ std::ostream &operator<<(std::ostream &os, const Record &rec)
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-std::set<double> DatabaseInterfaceHelperMap::m_times;
+std::set<double> DatabaseInterfaceHelper::m_times;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperMap::PrintStatistics()
+void DatabaseInterfaceHelper::PrintStatistics()
 {
 	std::cout << "Container type: ---- Map" << std::endl;
 
@@ -56,7 +56,7 @@ void DatabaseInterfaceHelperMap::PrintStatistics()
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperMap::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
+void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
 {
 \
 	for (uint32_t i = 0; i < static_cast<uint32_t>(numRecords); i++)
@@ -66,7 +66,7 @@ void DatabaseInterfaceHelperMap::PopulateDummyData(QBRecordCollection &records, 
 
 }
 
-void DatabaseInterfaceHelperMap::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
+void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
 	COLUMNS column, const std::string &matchString)
 {
 	switch (column)
@@ -136,9 +136,14 @@ void DatabaseInterfaceHelperMap::QBFindMatchingRecords(const QBRecordCollection 
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperMap::DeleteRecordById(QBRecordCollection &records, uint32_t id)
+void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, uint32_t id)
 {
-
+	int numDeletedElements = records.erase(id);
+	
+	if (!numDeletedElements)
+	{
+		std::cout << "No elements has been deleted. Please try again with valid id." << std::endl;
+	}
 }
 
 } // namespace qbMap

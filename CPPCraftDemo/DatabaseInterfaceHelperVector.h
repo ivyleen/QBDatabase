@@ -20,6 +20,7 @@ struct QBRecord
 	std::string column3;
 
 	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
+	friend std::ostream& operator<<(std::ostream& os, const QBRecord& rec);
 
 }; // QBRecord
 
@@ -29,7 +30,7 @@ struct QBRecord
 /*
 	DatabaseInterfaceHelperVector represents interface with static functions for working with QBRecordCollection-s.
 */
-struct DatabaseInterfaceHelperVector
+struct DatabaseInterfaceHelper
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 

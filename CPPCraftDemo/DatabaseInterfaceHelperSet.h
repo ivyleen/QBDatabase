@@ -20,7 +20,9 @@ struct QBRecord
 	long column2;
 	std::string column3;
 
-	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
+	// This function is used by the std::set to order elements of QBRecord.
+	friend bool operator<(const QBRecord &lhs, const QBRecord &rhs);
+	friend std::ostream& operator<<(std::ostream& os, const QBRecord& rec);
 
 }; // QBRecord
 
@@ -30,7 +32,7 @@ struct QBRecord
 /*
 	DatabaseInterfaceHelperSet represents interface with static functions for working with QBRecordCollection-s.
 */
-struct DatabaseInterfaceHelperSet
+struct DatabaseInterfaceHelper
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 

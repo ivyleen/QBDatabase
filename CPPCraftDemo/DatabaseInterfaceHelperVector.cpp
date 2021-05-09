@@ -6,21 +6,30 @@
 namespace qbVector
 {
 
-bool operator==(const QBRecord &qbRecord, const uint32_t column0) {
+bool operator==(const QBRecord &qbRecord, const uint32_t column0)
+{
 	return  qbRecord.column0 == column0;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
+{
+	os << "{" << rec.column0 << "} {" << rec.column1 << "} {" << rec.column2 << "} {" << rec.column0 << "}\n";
+	return os;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-std::set<double> DatabaseInterfaceHelperVector::m_times;
+std::set<double> DatabaseInterfaceHelper::m_times;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperVector::PrintStatistics()
+void DatabaseInterfaceHelper::PrintStatistics()
 {
-	std::cout << "Container type: ---- Set" << std::endl;
+	std::cout << "Container type: ---- Vector" << std::endl;
 
 	TimeCollectionType::iterator it = m_times.begin();
 	std::advance(it, m_times.size() / 2);
@@ -36,13 +45,12 @@ void DatabaseInterfaceHelperVector::PrintStatistics()
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperVector::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
+void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
 {
 	records.reserve(records.size() + numRecords);
 	for (uint32_t i = 0; i < static_cast<uint32_t>(numRecords); i++)
 	{
-		QBRecord rec = { i, prefix + std::to_string(i), i % 100, std::to_string(i) + prefix };
-		records.emplace_back(rec);
+		records.emplace_back(QBRecord(i, prefix + std::to_string(i), i % 100, std::to_string(i) + prefix));
 	}
 
 	// Sort the vector in increasing order - using column0 as comparant - to increase chances for faster search.
@@ -56,7 +64,7 @@ void DatabaseInterfaceHelperVector::PopulateDummyData(QBRecordCollection &record
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperVector::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
+void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
 	COLUMNS column, const std::string &matchString)
 {
 	switch (column)
@@ -104,11 +112,12 @@ void DatabaseInterfaceHelperVector::QBFindMatchingRecords(const QBRecordCollecti
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperVector::DeleteRecordById(QBRecordCollection &records, uint32_t id)
+void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, uint32_t id)
 {
 	// Erase-remove idiom: we first mark the elements that need to be erased from the container in single pass through
 	// the data range and then start erasing them from the returned iterator of the first of the marked elements until end.
-	records.erase(std::remove(records.begin(), records.end(), id), records.end());
+	records.erase(std::remove(records.begin(), records.end(), [](const QBRecord& rec) { return rec.column0 == id; }),
+		records.end());
 }
 
 } // namespace qb

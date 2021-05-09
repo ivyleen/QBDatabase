@@ -20,7 +20,7 @@ The things that need to be taken into account:
 3) Modern and standard C++ idioms should be used
 
 
-The project is can run on:
+The project can run on:
 1) Microsoft Visual Studio 2017 using C++14 opening the solution
 2) Under Linux with command: g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp Menu.cpp stdafx.cpp  -o app
 

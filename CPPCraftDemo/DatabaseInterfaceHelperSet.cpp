@@ -7,19 +7,28 @@
 namespace qbSet
 {
 
-bool operator==(const QBRecord &qbRecord, const uint32_t column0) {
-	return  qbRecord.column0 == column0;
+bool operator<(const QBRecord &lhs, const QBRecord &rhs)
+{
+	return  lhs->column0 < rhs.column0;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
+{
+	os << "{" << rec.column0 << "} {" << rec.column1 << "} {" << rec.column2 << "} {" << rec.column0 << "}\n";
+	return os;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-std::set<double> DatabaseInterfaceHelperSet::m_times;
+std::set<double> DatabaseInterfaceHelper::m_times;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperSet::PrintStatistics()
+void DatabaseInterfaceHelper::PrintStatistics()
 {
 	std::cout << "Container type: ---- Set" << std::endl;
 
@@ -37,14 +46,17 @@ void DatabaseInterfaceHelperSet::PrintStatistics()
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperSet::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
+void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, const std::string &prefix, int numRecords)
 {
-
+	for (int i = 0; i < numRecords; ++i)
+	{
+		records.insert(QBRecord(i, prefix + std::to_string(i), i % 100, std::to_string(i) + prefix));
+	}
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperSet::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
+void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
 	COLUMNS column, const std::string &matchString)
 {
 	switch (column)
@@ -77,7 +89,7 @@ void DatabaseInterfaceHelperSet::QBFindMatchingRecords(const QBRecordCollection 
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelperSet::DeleteRecordById(QBRecordCollection &records, uint32_t id)
+void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, uint32_t id)
 {
 }
 

@@ -18,10 +18,10 @@ namespace menu
 
 void Menu::FindVectorRecords()
 {
-	qbVector::DatabaseInterfaceHelperVector dbInterface;
+	qbVector::DatabaseInterfaceHelper dbInterface;
 
 	// Populate a bunch of data.
-	qbVector::DatabaseInterfaceHelperVector::QBRecordCollection data;
+	qbVector::DatabaseInterfaceHelper::QBRecordCollection data;
 	dbInterface.PopulateDummyData(data, "testdata", 1000);
 
 	std::cout << "============== VECTOR =========================================================================" << std::endl;
@@ -30,24 +30,24 @@ void Menu::FindVectorRecords()
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbVector::DatabaseInterfaceHelperVector::QBRecordCollection result0;
-		dbInterface.QBFindMatchingRecords(data, result0, qbVector::DatabaseInterfaceHelperVector::COLUMNS::COLUMN_0, "424");
+		qbVector::DatabaseInterfaceHelper::QBRecordCollection result0;
+		dbInterface.QBFindMatchingRecords(data, result0, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
 
-		qbVector::DatabaseInterfaceHelperVector::QBRecordCollection result1;
-		dbInterface.QBFindMatchingRecords(data, result1, qbVector::DatabaseInterfaceHelperVector::COLUMNS::COLUMN_1, "testdata500");
+		qbVector::DatabaseInterfaceHelper::QBRecordCollection result1;
+		dbInterface.QBFindMatchingRecords(data, result1, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbVector::DatabaseInterfaceHelperVector::QBRecordCollection result2;
-		dbInterface.QBFindMatchingRecords(data, result2, qbVector::DatabaseInterfaceHelperVector::COLUMNS::COLUMN_2, "24");
+		qbVector::DatabaseInterfaceHelper::QBRecordCollection result2;
+		dbInterface.QBFindMatchingRecords(data, result2, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
 
-		qbVector::DatabaseInterfaceHelperVector::QBRecordCollection result3;
-		dbInterface.QBFindMatchingRecords(data, result2, qbVector::DatabaseInterfaceHelperVector::COLUMNS::COLUMN_3, "424testdata");
+		qbVector::DatabaseInterfaceHelper::QBRecordCollection result3;
+		dbInterface.QBFindMatchingRecords(data, result2, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds = static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
 
 		std::cout << "std::vector " << nseconds << " seconds." << std::endl;
 
-		qbVector::DatabaseInterfaceHelperVector::m_times.insert(nseconds);
+		qbVector::DatabaseInterfaceHelper::m_times.insert(nseconds);
 	}
 }
 
@@ -55,10 +55,10 @@ void Menu::FindVectorRecords()
 
 void Menu::FindMapRecords()
 {
-	qbMap::DatabaseInterfaceHelperMap dbInterface;
+	qbMap::DatabaseInterfaceHelper dbInterface;
 
 	// Populate a bunch of data.
-	qbMap::DatabaseInterfaceHelperMap::QBRecordCollection data;
+	qbMap::DatabaseInterfaceHelper::QBRecordCollection data;
 	dbInterface.PopulateDummyData(data, "testdata", 1000);
 
 	std::cout << "============== UNORDERED MAP =================================================================" << std::endl;
@@ -68,24 +68,24 @@ void Menu::FindMapRecords()
 		using namespace std::chrono;
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbMap::DatabaseInterfaceHelperMap::QBRecordCollection result0;
-		dbInterface.QBFindMatchingRecords(data, result0, qbMap::DatabaseInterfaceHelperMap::COLUMNS::COLUMN_0, "424");
+		qbMap::DatabaseInterfaceHelper::QBRecordCollection result0;
+		dbInterface.QBFindMatchingRecords(data, result0, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
 
-		qbMap::DatabaseInterfaceHelperMap::QBRecordCollection result1;
-		dbInterface.QBFindMatchingRecords(data, result1, qbMap::DatabaseInterfaceHelperMap::COLUMNS::COLUMN_1, "testdata500");
+		qbMap::DatabaseInterfaceHelper::QBRecordCollection result1;
+		dbInterface.QBFindMatchingRecords(data, result1, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbMap::DatabaseInterfaceHelperMap::QBRecordCollection result2;
-		dbInterface.QBFindMatchingRecords(data, result2, qbMap::DatabaseInterfaceHelperMap::COLUMNS::COLUMN_2, "24");
+		qbMap::DatabaseInterfaceHelper::QBRecordCollection result2;
+		dbInterface.QBFindMatchingRecords(data, result2, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
 
-		qbMap::DatabaseInterfaceHelperMap::QBRecordCollection result3;
-		dbInterface.QBFindMatchingRecords(data, result3, qbMap::DatabaseInterfaceHelperMap::COLUMNS::COLUMN_3, "424testdata");
+		qbMap::DatabaseInterfaceHelper::QBRecordCollection result3;
+		dbInterface.QBFindMatchingRecords(data, result3, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
 
 		std::cout << "std::map " << nseconds << " seconds." << std::endl;
 
-		qbMap::DatabaseInterfaceHelperMap::m_times.insert(nseconds);
+		qbMap::DatabaseInterfaceHelper::m_times.insert(nseconds);
 	}
 }
 
@@ -93,10 +93,10 @@ void Menu::FindMapRecords()
 
 void Menu::FindSetRecords()
 {
-	qbSet::DatabaseInterfaceHelperSet dbInterface;
+	qbSet::DatabaseInterfaceHelper dbInterface;
 
 	// Populate a bunch of data.
-	qbSet::DatabaseInterfaceHelperSet::QBRecordCollection data;
+	qbSet::DatabaseInterfaceHelper::QBRecordCollection data;
 	dbInterface.PopulateDummyData(data, "testdata", 1000);
 
 	std::cout << "============== SET ===========================================================================" << std::endl;
@@ -106,24 +106,24 @@ void Menu::FindSetRecords()
 		using namespace std::chrono;
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbSet::DatabaseInterfaceHelperSet::QBRecordCollection result0;
-		dbInterface.QBFindMatchingRecords(data, result0, qbSet::DatabaseInterfaceHelperSet::COLUMNS::COLUMN_0, "424");
+		qbSet::DatabaseInterfaceHelper::QBRecordCollection result0;
+		dbInterface.QBFindMatchingRecords(data, result0, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
 
-		qbSet::DatabaseInterfaceHelperSet::QBRecordCollection result1;
-		dbInterface.QBFindMatchingRecords(data, result1, qbSet::DatabaseInterfaceHelperSet::COLUMNS::COLUMN_1, "testdata500");
+		qbSet::DatabaseInterfaceHelper::QBRecordCollection result1;
+		dbInterface.QBFindMatchingRecords(data, result1, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbSet::DatabaseInterfaceHelperSet::QBRecordCollection result2;
-		dbInterface.QBFindMatchingRecords(data, result2, qbSet::DatabaseInterfaceHelperSet::COLUMNS::COLUMN_2, "24");
+		qbSet::DatabaseInterfaceHelper::QBRecordCollection result2;
+		dbInterface.QBFindMatchingRecords(data, result2, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
 
-		qbSet::DatabaseInterfaceHelperSet::QBRecordCollection result3;
-		dbInterface.QBFindMatchingRecords(data, result3, qbSet::DatabaseInterfaceHelperSet::COLUMNS::COLUMN_3, "424testdata");
+		qbSet::DatabaseInterfaceHelper::QBRecordCollection result3;
+		dbInterface.QBFindMatchingRecords(data, result3, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
 
 		std::cout << "std::set " << nseconds << " seconds." << std::endl;
 
-		qbSet::DatabaseInterfaceHelperSet::m_times.insert(nseconds);
+		qbSet::DatabaseInterfaceHelper::m_times.insert(nseconds);
 	}
 }
 
@@ -131,9 +131,9 @@ void Menu::FindSetRecords()
 
 void Menu::PrintStatistics()
 {
-	qbVector::DatabaseInterfaceHelperVector::PrintStatistics();
-	qbMap::DatabaseInterfaceHelperMap::PrintStatistics();
-	qbSet::DatabaseInterfaceHelperSet::PrintStatistics();
+	qbVector::DatabaseInterfaceHelper::PrintStatistics();
+	qbMap::DatabaseInterfaceHelper::PrintStatistics();
+	qbSet::DatabaseInterfaceHelper::PrintStatistics();
 }
 
 } // namespace menu
