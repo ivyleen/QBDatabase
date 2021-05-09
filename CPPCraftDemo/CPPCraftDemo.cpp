@@ -4,10 +4,23 @@
 
 int main(int argc, char *argv[])
 {
-	menu::Menu::FindVectorRecords();
-	menu::Menu::FindMapRecords();
-	menu::Menu::FindSetRecords();
-	menu::Menu::PrintStatistics();
+	using namespace menu;
+
+	Menu::PopulateRecordCollections();
+
+	Menu::FindVectorRecords();
+	Menu::FindMapRecords();
+	Menu::FindSetRecords();
+
+	Menu::PrintStatistics();
+
+	Menu::DeleteRecords();
+
+	Menu::FindVectorRecords();
+	Menu::FindMapRecords();
+	Menu::FindSetRecords();
+	
+	Menu::PrintStatistics();
 
 	return 0;
 }
