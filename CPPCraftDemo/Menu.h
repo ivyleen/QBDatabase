@@ -4,11 +4,22 @@
 #include "DatabaseInterfaceHelperMap.h"
 #include "DatabaseInterfaceHelperSet.h"
 
+#ifdef MULTI_INDEX
+#include "DatabaseInterfaceHelperMultiIndex.h"
+#endif
+
 namespace menu
 {
 
 struct Menu
 {
+	using VectorHelper		=	qbVector::DatabaseInterfaceHelper;
+	using MapHelper			=	qbMap::DatabaseInterfaceHelper;
+	using SetHelper			=	qbSet::DatabaseInterfaceHelper;
+
+#ifdef MULTI_INDEX
+	using MultiIndexHelper	=	qbMultiIndex::DatabaseInterfaceHelper;
+#endif
 
 	/*
 		PrintStatistics function prints the mean and medium avarage, minimum and maximum time for every
@@ -42,9 +53,9 @@ struct Menu
 	static void PopulateRecordCollections();
 
 private:
-	static qbVector::DatabaseInterfaceHelper::QBRecordCollection m_dataVector;
-	static qbMap::DatabaseInterfaceHelper::QBRecordCollection m_dataMap;
-	static qbSet::DatabaseInterfaceHelper::QBRecordCollection m_dataSet;
+	static VectorHelper::QBRecordCollection m_dataVector;
+	static MapHelper::QBRecordCollection m_dataMap;
+	static SetHelper::QBRecordCollection m_dataSet;
 };
 
 } // namespace menu

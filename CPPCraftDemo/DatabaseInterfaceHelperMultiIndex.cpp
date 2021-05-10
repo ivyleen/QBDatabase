@@ -3,7 +3,7 @@
 #ifdef MULTI_INDEX
 
 #include <iostream>
-#include "DatabaseInterfaceHelper.h"
+#include "DatabaseInterfaceHelperMultiIndex.h"
 
 
 namespace qbMultiIndex

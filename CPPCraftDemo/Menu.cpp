@@ -12,9 +12,9 @@
 namespace menu
 {
 
-qbVector::DatabaseInterfaceHelper::QBRecordCollection Menu::m_dataVector;
-qbMap::DatabaseInterfaceHelper::QBRecordCollection Menu::m_dataMap;
-qbSet::DatabaseInterfaceHelper::QBRecordCollection Menu::m_dataSet;
+Menu::VectorHelper::QBRecordCollection Menu::m_dataVector;
+Menu::MapHelper::QBRecordCollection Menu::m_dataMap;
+Menu::SetHelper::QBRecordCollection Menu::m_dataSet;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -22,22 +22,23 @@ qbSet::DatabaseInterfaceHelper::QBRecordCollection Menu::m_dataSet;
 void Menu::FindVectorRecords()
 {
 	std::cout << "============== VECTOR =========================================================================" << std::endl;
+
 	// Find a record that contains and measure the performance.
 	for (int i = 0; i < 1000; ++i)
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbVector::DatabaseInterfaceHelper::QBRecordCollection result0;
-		qbVector::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataVector, result0, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
+		VectorHelper::QBRecordCollection result0;
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result0, VectorHelper::COLUMNS::COLUMN_0, "424");
 
-		qbVector::DatabaseInterfaceHelper::QBRecordCollection result1;
-		qbVector::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataVector, result1, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
+		VectorHelper::QBRecordCollection result1;
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result1, VectorHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbVector::DatabaseInterfaceHelper::QBRecordCollection result2;
-		qbVector::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataVector, result2, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
+		VectorHelper::QBRecordCollection result2;
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_2, "24");
 
-		qbVector::DatabaseInterfaceHelper::QBRecordCollection result3;
-		qbVector::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataVector, result2, qbVector::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
+		VectorHelper::QBRecordCollection result3;
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds = static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
@@ -46,7 +47,7 @@ void Menu::FindVectorRecords()
 		std::cout << "std::vector " << nseconds << " seconds." << std::endl;
 #endif
 
-		qbVector::DatabaseInterfaceHelper::m_times.insert(nseconds);
+		VectorHelper::m_times.insert(nseconds);
 	}
 }
 
@@ -55,23 +56,23 @@ void Menu::FindVectorRecords()
 void Menu::FindMapRecords()
 {
 	std::cout << "============== UNORDERED MAP =================================================================" << std::endl;
+
 	// Find a record that contains and measure the performance.
 	for (int i = 0; i < 1000; ++i)
 	{
-		using namespace std::chrono;
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbMap::DatabaseInterfaceHelper::QBRecordCollection result0;
-		qbMap::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataMap, result0, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
+		MapHelper::QBRecordCollection result0;
+		MapHelper::QBFindMatchingRecords(m_dataMap, result0, MapHelper::COLUMNS::COLUMN_0, "424");
 
-		qbMap::DatabaseInterfaceHelper::QBRecordCollection result1;
-		qbMap::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataMap, result1, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
+		MapHelper::QBRecordCollection result1;
+		MapHelper::QBFindMatchingRecords(m_dataMap, result1, MapHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbMap::DatabaseInterfaceHelper::QBRecordCollection result2;
-		qbMap::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataMap, result2, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
+		MapHelper::QBRecordCollection result2;
+		MapHelper::QBFindMatchingRecords(m_dataMap, result2, MapHelper::COLUMNS::COLUMN_2, "24");
 
-		qbMap::DatabaseInterfaceHelper::QBRecordCollection result3;
-		qbMap::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataMap, result3, qbMap::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
+		MapHelper::QBRecordCollection result3;
+		MapHelper::QBFindMatchingRecords(m_dataMap, result3, MapHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
@@ -80,7 +81,7 @@ void Menu::FindMapRecords()
 		std::cout << "std::map " << nseconds << " seconds." << std::endl;
 #endif
 
-		qbMap::DatabaseInterfaceHelper::m_times.insert(nseconds);
+		MapHelper::m_times.insert(nseconds);
 	}
 }
 
@@ -88,25 +89,24 @@ void Menu::FindMapRecords()
 
 void Menu::FindSetRecords()
 {
-
 	std::cout << "============== SET ===========================================================================" << std::endl;
+
 	// Find a record that contains and measure the performance.
 	for (int i = 0; i < 1000; ++i)
 	{
-		using namespace std::chrono;
 		auto startTimer = std::chrono::steady_clock::now();
 
-		qbSet::DatabaseInterfaceHelper::QBRecordCollection result0;
-		qbSet::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataSet, result0, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_0, "424");
+		SetHelper::QBRecordCollection result0;
+		SetHelper::QBFindMatchingRecords(m_dataSet, result0, SetHelper::COLUMNS::COLUMN_0, "424");
 
-		qbSet::DatabaseInterfaceHelper::QBRecordCollection result1;
-		qbSet::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataSet, result1, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_1, "testdata500");
+		SetHelper::QBRecordCollection result1;
+		SetHelper::QBFindMatchingRecords(m_dataSet, result1, SetHelper::COLUMNS::COLUMN_1, "testdata500");
 
-		qbSet::DatabaseInterfaceHelper::QBRecordCollection result2;
-		qbSet::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataSet, result2, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_2, "24");
+		SetHelper::QBRecordCollection result2;
+		SetHelper::QBFindMatchingRecords(m_dataSet, result2, SetHelper::COLUMNS::COLUMN_2, "24");
 
-		qbSet::DatabaseInterfaceHelper::QBRecordCollection result3;
-		qbSet::DatabaseInterfaceHelper::QBFindMatchingRecords(m_dataSet, result3, qbSet::DatabaseInterfaceHelper::COLUMNS::COLUMN_3, "424testdata");
+		SetHelper::QBRecordCollection result3;
+		SetHelper::QBFindMatchingRecords(m_dataSet, result3, SetHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
@@ -115,17 +115,48 @@ void Menu::FindSetRecords()
 		std::cout << "std::set " << nseconds << " seconds." << std::endl;
 #endif
 
-		qbSet::DatabaseInterfaceHelper::m_times.insert(nseconds);
+		SetHelper::m_times.insert(nseconds);
 	}
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
+#ifdef MULTI_INDEX
+void Menu::FindMultiIndexRecords()
+{
+	std::cout << "============== MULTI INDEX ==================================================================" << std::endl;
+
+	// Find a record that contains and measure the performance.
+	for (int i = 0; i < 1000; ++i)
+	{
+		auto startTimer = std::chrono::steady_clock::now();
+
+		MultiIndexHelper::QBRecordCollection result0;
+		MultiIndexHelper::QBFindMatchingRecords(result0, MultiIndexHelper::COLUMNS::COLUMN_0, "424");
+
+		MultiIndexHelper::QBRecordCollection result1;
+		MultiIndexHelper::QBFindMatchingRecords(result1, MultiIndexHelper::COLUMNS::COLUMN_1, "testdata500");
+
+		MultiIndexHelper::QBRecordCollection result2;
+		MultiIndexHelper::QBFindMatchingRecords(result2, MultiIndexHelper::COLUMNS::COLUMN_2, "24");
+
+		MultiIndexHelper::QBRecordCollection result3;
+		MultiIndexHelper::QBFindMatchingRecords(result3, MultiIndexHelper::COLUMNS::COLUMN_3, "424testdata");
+
+		std::cout << "multi_index: " <<
+			double((std::chrono::steady_clock::now() - startTimer).count()) * std::chrono::steady_clock::period::num /
+			std::chrono::steady_clock::period::den << std::endl;
+	}
+}
+#endif // MULTI_INDEX
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::PrintStatistics()
 {
-	qbVector::DatabaseInterfaceHelper::PrintStatistics();
-	qbMap::DatabaseInterfaceHelper::PrintStatistics();
-	qbSet::DatabaseInterfaceHelper::PrintStatistics();
+	VectorHelper::PrintStatistics();
+	MapHelper::PrintStatistics();
+	SetHelper::PrintStatistics();
 }
 
 
@@ -134,25 +165,35 @@ void Menu::PrintStatistics()
 void Menu::DeleteRecords()
 {
 	std::cout << "Size of vector container before deletion: " << m_dataVector.size() << std::endl;
-	qbVector::DatabaseInterfaceHelper::DeleteRecordById(m_dataVector, static_cast<uint32_t>(424));
+	VectorHelper::DeleteRecordById(m_dataVector, static_cast<uint32_t>(424));
 	std::cout << "Size of vector container after deletion: " << m_dataVector.size() << std::endl;
 
 	std::cout << "Size of map container before deletion: " << m_dataMap.size() << std::endl;
-	qbMap::DatabaseInterfaceHelper::DeleteRecordById(m_dataMap, static_cast<uint32_t>(424));
+	MapHelper::DeleteRecordById(m_dataMap, static_cast<uint32_t>(424));
 	std::cout << "Size of map container after deletion: " << m_dataMap.size() << std::endl;
 
 	std::cout << "Size of set container before deletion: " << m_dataSet.size() << std::endl;
-	qbSet::DatabaseInterfaceHelper::DeleteRecordById(m_dataSet, static_cast<uint32_t>(424));
+	SetHelper::DeleteRecordById(m_dataSet, static_cast<uint32_t>(424));
 	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
+
+#ifdef MULTI_INDEX
+	std::cout << "Size of set container before deletion: " << m_dataSet.size() << std::endl;
+	qbMultiIndex::DatabaseInterfaceHelper::DeleteRecordById(static_cast<uint32_t>(424));
+	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
+#endif
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void Menu::PopulateRecordCollections()
 {
-	qbVector::DatabaseInterfaceHelper::PopulateDummyData(m_dataVector, "testdata", 1000);
-	qbMap::DatabaseInterfaceHelper::PopulateDummyData(m_dataMap, "testdata", 1000);
-	qbSet::DatabaseInterfaceHelper::PopulateDummyData(m_dataSet, "testdata", 1000);
+	VectorHelper::PopulateDummyData(m_dataVector, "testdata", 1000);
+	MapHelper::PopulateDummyData(m_dataMap, "testdata", 1000);
+	SetHelper::PopulateDummyData(m_dataSet, "testdata", 1000);
+
+#ifdef MULTI_INDEX
+	MultiIndexHelper::PopulateDummyData("testdata", 1000);
+#endif
 }
 
 } // namespace menu

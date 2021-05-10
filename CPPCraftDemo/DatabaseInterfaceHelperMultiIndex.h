@@ -52,7 +52,7 @@ private:
 		boost::multi_index::hashed_unique
 		<
 			boost::multi_index::tag<Column0Tag>,
-			boost::multi_index::member<QBRecord, uint32_t,	&QBRecord::m_column0>
+			boost::multi_index::member<QBRecord, uint32_t,		&QBRecord::m_column0>
 		>,
 		boost::multi_index::hashed_non_unique
 		<
