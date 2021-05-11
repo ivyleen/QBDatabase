@@ -92,8 +92,14 @@ private:
 struct DatabaseInterfaceHelper
 {
 	using QBRecordCollection = QBRecordContainer::QBRecordCollection;
+	using TimeCollectionType = std::set<double>;
 
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
+
+	/**
+		All the unique times for the collection.
+	*/
+	static TimeCollectionType m_times;
 
 	/**
 		PopulateDummyData is utility to populate the multi index collection.
@@ -101,6 +107,11 @@ struct DatabaseInterfaceHelper
 		@param numRecords		number of records to populate in the collection
 	*/
 	static void PopulateDummyData(const std::string &prefix, int numRecords);
+
+	/**
+		PrintStatistics prints the mean and medium avarage, minimum and maximum time for every data type.
+	*/
+	static void PrintStatistics();
 
 	/**
 		QBFindMatchingRecords finds matching records in specified column.

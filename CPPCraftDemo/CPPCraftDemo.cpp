@@ -11,6 +11,9 @@ int main(int argc, char *argv[])
 	Menu::FindVectorRecords();
 	Menu::FindMapRecords();
 	Menu::FindSetRecords();
+#ifdef MULTI_INDEX
+	Menu::FindMultiIndexRecords();
+#endif
 
 	Menu::PrintStatistics();
 
@@ -19,7 +22,10 @@ int main(int argc, char *argv[])
 	Menu::FindVectorRecords();
 	Menu::FindMapRecords();
 	Menu::FindSetRecords();
-	
+#ifdef MULTI_INDEX
+	Menu::FindMultiIndexRecords();
+#endif
+
 	Menu::PrintStatistics();
 
 	return 0;

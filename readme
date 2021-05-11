@@ -22,7 +22,13 @@ The things that need to be taken into account:
 
 The project can run on:
 1) Microsoft Visual Studio 2017 using C++14 opening the solution
-2) Under Linux with command: g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp Menu.cpp stdafx.cpp  -o app
+2) Under Linux with command:
+- Tests without boost::multi_index:
+g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp Menu.cpp stdafx.cpp  -o app
+
+- Tests with boost::multi_index - first uncomment the define MULTI_INDEX in stdafx.h
+g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp
+DatabaseInterfaceHelperMultiIndex.cpp Menu.cpp stdafx.cpp  -o app
 
 
 Disclaimer: Do NOT use this code for anything else but evaluation for my application.

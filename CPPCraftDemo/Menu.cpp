@@ -21,7 +21,7 @@ Menu::SetHelper::QBRecordCollection Menu::m_dataSet;
 
 void Menu::FindVectorRecords()
 {
-	std::cout << "============== VECTOR =========================================================================" << std::endl;
+	std::cout << "============== VECTOR ========================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
 	for (int i = 0; i < 1000; ++i)
@@ -124,7 +124,7 @@ void Menu::FindSetRecords()
 #ifdef MULTI_INDEX
 void Menu::FindMultiIndexRecords()
 {
-	std::cout << "============== MULTI INDEX ==================================================================" << std::endl;
+	std::cout << "============== MULTI INDEX ===================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
 	for (int i = 0; i < 1000; ++i)
@@ -143,9 +143,14 @@ void Menu::FindMultiIndexRecords()
 		MultiIndexHelper::QBRecordCollection result3;
 		MultiIndexHelper::QBFindMatchingRecords(result3, MultiIndexHelper::COLUMNS::COLUMN_3, "424testdata");
 
-		std::cout << "multi_index: " <<
-			double((std::chrono::steady_clock::now() - startTimer).count()) * std::chrono::steady_clock::period::num /
-			std::chrono::steady_clock::period::den << std::endl;
+		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+
+#ifdef _DEBUG_
+		std::cout << "multi_index: " << nseconds << std::endl;
+#endif
+
+		MultiIndexHelper::m_times.insert(nseconds);
 	}
 }
 #endif // MULTI_INDEX
@@ -157,6 +162,10 @@ void Menu::PrintStatistics()
 	VectorHelper::PrintStatistics();
 	MapHelper::PrintStatistics();
 	SetHelper::PrintStatistics();
+
+#ifdef MULTI_INDEX
+	MultiIndexHelper::PrintStatistics();
+#endif
 }
 
 
@@ -177,9 +186,9 @@ void Menu::DeleteRecords()
 	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
 
 #ifdef MULTI_INDEX
-	std::cout << "Size of set container before deletion: " << m_dataSet.size() << std::endl;
+	std::cout << "Size of multi_index container before deletion: " << m_dataSet.size() << std::endl;
 	qbMultiIndex::DatabaseInterfaceHelper::DeleteRecordById(static_cast<uint32_t>(424));
-	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
+	std::cout << "Size of multi_index container after deletion: " << m_dataSet.size() << std::endl;
 #endif
 }
 

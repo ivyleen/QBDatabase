@@ -14,4 +14,6 @@
 #include <assert.h>
 #include <numeric>
 
+#define MULTI_INDEX
+
 // TODO: reference additional headers your program requires here

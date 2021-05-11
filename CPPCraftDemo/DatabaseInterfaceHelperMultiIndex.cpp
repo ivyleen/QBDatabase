@@ -2,7 +2,6 @@
 
 #ifdef MULTI_INDEX
 
-#include <iostream>
 #include "DatabaseInterfaceHelperMultiIndex.h"
 
 
@@ -32,9 +31,32 @@ void QBRecordContainer::PopulateQBRecordMultiIndex(const std::string &prefix, in
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
+std::set<double> DatabaseInterfaceHelper::m_times;
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 void DatabaseInterfaceHelper::PopulateDummyData(const std::string &prefix, int numRecords)
 {
 	QBRecordContainer::PopulateQBRecordMultiIndex(prefix, 1000);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void DatabaseInterfaceHelper::PrintStatistics()
+{
+	std::cout << "Container type: ---- boost::multi_index" << std::endl;
+
+	TimeCollectionType::iterator it = m_times.begin();
+	std::advance(it, m_times.size() / 2);
+	std::cout << "Mean avarage: " << *it << std::endl;
+
+	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.0);
+	std::cout << "Medium avarage: " << static_cast<double>(sum/2) << std::endl;
+
+	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
+
+	std::cout << "Maximum time: " << *m_times.end() << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------

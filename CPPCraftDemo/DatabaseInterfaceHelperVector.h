@@ -83,6 +83,6 @@ struct DatabaseInterfaceHelper
 	*/
 	static void DeleteRecordById(QBRecordCollection &records, uint32_t id);
 
-}; // DatabaseInterfaceVector
+}; // DatabaseInterfaceHelper
 
 } // namespace qb

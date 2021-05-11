@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 #include "DatabaseInterfaceHelperVector.h"
 #include "DatabaseInterfaceHelperMap.h"
 #include "DatabaseInterfaceHelperSet.h"
@@ -22,28 +24,34 @@ struct Menu
 #endif
 
 	/*
+		FindVectorRecords function follows the lookup logic of a std::vector as a data type of QBRecord objects.
+	*/
+	static void FindVectorRecords();
+
+	/*
+		FindMapRecords function follows the lookup logic of a std::map as a data type of QBRecord objects.
+	*/
+	static void FindMapRecords();
+
+	/*
+		FindSetRecords function follows the lookup logic of a std::set as a data type of QBRecord objects.
+	*/
+	static void FindSetRecords();
+
+#ifdef MULTI_INDEX
+	/*
+		FindSetRecords function follows the lookup logic of a boost::multi_index as a data type of QBRecord objects.
+	*/
+	static void FindMultiIndexRecords();
+#endif
+	/*
 		PrintStatistics function prints the mean and medium avarage, minimum and maximum time for every
 		data type.
 	*/
 	static void PrintStatistics();
 
 	/*
-		FindVectorRecords function follows the lookup logic of a std::vector as a data type of Record objects.
-	*/
-	static void FindVectorRecords();
-
-	/*
-		FindMapRecords function follows the lookup logic of a std::map as a data type of Record objects.
-	*/
-	static void FindMapRecords();
-
-	/*
-		FindSetRecords function follows the lookup logic of a std::set as a data type of Record objects.
-	*/
-	static void FindSetRecords();
-
-	/*
-		DeleteRecords function deletes records in the already populated data types of Record objects.
+		DeleteRecords function deletes records in the already populated data types of QBRecord objects.
 	*/
 	static void DeleteRecords();
 
