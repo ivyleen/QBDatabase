@@ -61,8 +61,8 @@ void DatabaseInterfaceHelper::PrintStatistics()
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelper::QBFindMatchingRecords(QBRecordCollection &returnRecords,
-	COLUMNS column, const std::string &matchString)
+void DatabaseInterfaceHelper::QBFindMatchingRecords(QBRecordCollection &returnRecords, const COLUMNS column,
+	const std::string &matchString)
 {
 	switch (column)
 	{

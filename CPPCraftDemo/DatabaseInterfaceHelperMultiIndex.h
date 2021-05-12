@@ -119,8 +119,7 @@ struct DatabaseInterfaceHelper
 		@param columnName		the column of the search
 		@param matchString		the value we are looking for
 		*/
-	static void QBFindMatchingRecords(QBRecordCollection &returnRecords,
-		COLUMNS column, const std::string &matchString);
+	static void QBFindMatchingRecords(QBRecordCollection &returnRecords, const COLUMNS column, const std::string &matchString);
 
 	/**
 		DeleteRecordByID uses erase-remove idiom delete a record in the collection with a given id.

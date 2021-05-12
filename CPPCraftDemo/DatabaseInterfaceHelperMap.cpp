@@ -67,8 +67,13 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 }
 
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
-	COLUMNS column, const std::string &matchString)
+	const COLUMNS column, const std::string &matchString)
 {
+	if (resourceRecords.empty())
+	{
+		assert(true);
+	}
+
 	switch (column)
 	{
 		// Search by key.

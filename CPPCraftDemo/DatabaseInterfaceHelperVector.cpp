@@ -15,7 +15,7 @@ bool operator==(const QBRecord &qbRecord, const uint32_t column0)
 
 std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
 {
-	os << "{" << rec.m_column0 << "} {" << rec.m_column1 << "} {" << rec.m_column2 << "} {" << rec.m_column0 << "}\n";
+	os << "{" << rec.m_column0 << "} {" << rec.m_column1 << "} {" << rec.m_column2 << "} {" << rec.m_column3 << "}";
 	return os;
 }
 
@@ -65,8 +65,13 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
-	COLUMNS m_column, const std::string &matchString)
+	const COLUMNS m_column, const std::string &matchString)
 {
+	if (resourceRecords.empty())
+	{
+		assert(true);
+	}
+
 	switch (m_column)
 	{
 		case COLUMNS::COLUMN_0:

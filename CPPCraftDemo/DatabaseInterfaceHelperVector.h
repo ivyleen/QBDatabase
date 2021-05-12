@@ -14,7 +14,7 @@ namespace qbVector
 */
 struct QBRecord
 {
-	QBRecord(uint32_t column0, std::string column1, long column2, std::string column3) :
+	QBRecord(const uint32_t column0, const std::string &column1, const long column2, const std::string &column3) :
 		m_column0(column0),
 		m_column1(column1),
 		m_column2(column2),
@@ -74,7 +74,7 @@ struct DatabaseInterfaceHelper
 		@param matchString		the value we are looking for
 		*/
 	static void QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
-		COLUMNS column, const std::string &matchString);
+		const COLUMNS column, const std::string &matchString);
 
 	/**
 		DeleteRecordByID uses erase-remove idiom delete a record in the collection with a given id.
