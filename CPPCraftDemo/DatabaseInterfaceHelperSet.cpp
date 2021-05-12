@@ -2,21 +2,28 @@
 
 #include "DatabaseInterfaceHelperSet.h"
 
-
-
 namespace qbSet
 {
 
 bool operator<(const QBRecord &lhs, const QBRecord &rhs)
 {
-	return  lhs.m_column0 < rhs.m_column0;
+	return std::tie(lhs.m_column0, lhs.m_column1, lhs.m_column2, lhs.m_column3) <
+		std::tie(rhs.m_column0, rhs.m_column1, rhs.m_column2, rhs.m_column3);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+bool operator==(const QBRecord &lhs, const QBRecord &rhs)
+{
+	return std::tie(lhs.m_column0, lhs.m_column1, lhs.m_column2, lhs.m_column3) ==
+		std::tie(rhs.m_column0, rhs.m_column1, rhs.m_column2, rhs.m_column3);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
 {
-	os << "{" << rec.m_column0 << "} {" << rec.m_column1 << "} {" << rec.m_column2 << "} {" << rec.m_column0 << "}\n";
+	os << "{" << rec.m_column0 << "} {" << rec.m_column1 << "} {" << rec.m_column2 << "} {" << rec.m_column3 << "}";
 	return os;
 }
 
@@ -57,40 +64,25 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
-	COLUMNS m_column, const std::string &matchString)
+	const QBRecord& rec)
 {
-	switch (m_column)
+	if (resourceRecords.empty())
 	{
-		case COLUMNS::COLUMN_0:
-		{
-			int matchingNumber = std::stoi(matchString);
-			break;
-		}
-		case COLUMNS::COLUMN_1:
-		{
-			break;
-		}
-		case COLUMNS::COLUMN_2:
-		{
-			long matchingNumber = std::stol(matchString);
-			break;
-		}
-		case COLUMNS::COLUMN_3:
-		{
+		assert(true);
+	}
 
-			break;
-		}
-		default:
-			std::cout << "m_column id out of range: " << static_cast<int>(m_column) << std::endl;
-			assert(true);
-			break;
+	auto found = resourceRecords.find(rec);
+	if (found == resourceRecords.end())
+	{
+		assert(true);
 	}
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, uint32_t id)
+void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, const QBRecord &rec)
 {
+	records.erase(rec);
 }
 
 

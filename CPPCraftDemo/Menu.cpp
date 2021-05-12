@@ -40,14 +40,14 @@ void Menu::FindVectorRecords()
 		VectorHelper::QBRecordCollection result3;
 		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_3, "424testdata");
 
-		auto nseconds = static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+		auto millieconds = (static_cast<double>((std::chrono::steady_clock::now() -
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
 
 #ifdef _DEBUG_
-		std::cout << "std::vector " << nseconds << " seconds." << std::endl;
+		std::cout << "std::vector " << millieconds << " seconds." << std::endl;
 #endif
 
-		VectorHelper::m_times.insert(nseconds);
+		VectorHelper::m_times.insert(millieconds);
 	}
 }
 
@@ -74,14 +74,14 @@ void Menu::FindMapRecords()
 		MapHelper::QBRecordCollection result3;
 		MapHelper::QBFindMatchingRecords(m_dataMap, result3, MapHelper::COLUMNS::COLUMN_3, "424testdata");
 
-		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
 
 #ifdef _DEBUG_
-		std::cout << "std::map " << nseconds << " seconds." << std::endl;
+		std::cout << "std::map " << millieconds << " seconds." << std::endl;
 #endif
 
-		MapHelper::m_times.insert(nseconds);
+		MapHelper::m_times.insert(millieconds);
 	}
 }
 
@@ -97,25 +97,34 @@ void Menu::FindSetRecords()
 		auto startTimer = std::chrono::steady_clock::now();
 
 		SetHelper::QBRecordCollection result0;
-		SetHelper::QBFindMatchingRecords(m_dataSet, result0, SetHelper::COLUMNS::COLUMN_0, "424");
+		qbSet::QBRecord rec0(424, "testdata424", 24, "424testdata");
+		SetHelper::QBFindMatchingRecords(m_dataSet, result0, rec0);
 
 		SetHelper::QBRecordCollection result1;
-		SetHelper::QBFindMatchingRecords(m_dataSet, result1, SetHelper::COLUMNS::COLUMN_1, "testdata500");
+		qbSet::QBRecord rec1(424, "testdata424", 24, "424testdata");
+		SetHelper::QBFindMatchingRecords(m_dataSet, result1, rec1);
 
 		SetHelper::QBRecordCollection result2;
-		SetHelper::QBFindMatchingRecords(m_dataSet, result2, SetHelper::COLUMNS::COLUMN_2, "24");
+		qbSet::QBRecord rec2(424, "testdata424", 24, "424testdata");
+		SetHelper::QBFindMatchingRecords(m_dataSet, result2, rec2);
 
 		SetHelper::QBRecordCollection result3;
-		SetHelper::QBFindMatchingRecords(m_dataSet, result3, SetHelper::COLUMNS::COLUMN_3, "424testdata");
+		qbSet::QBRecord rec3(424, "testdata424", 24, "424testdata");
+		SetHelper::QBFindMatchingRecords(m_dataSet, result3, rec3);
 
-		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
+
+		if (!((result0.size() == result1.size()) == (result2.size() == result3.size())))
+		{
+			assert(true);
+		}
 
 #ifdef _DEBUG_
-		std::cout << "std::set " << nseconds << " seconds." << std::endl;
+		std::cout << "std::set " << millieconds << " seconds." << std::endl;
 #endif
 
-		SetHelper::m_times.insert(nseconds);
+		SetHelper::m_times.insert(millieconds);
 	}
 }
 
@@ -143,14 +152,14 @@ void Menu::FindMultiIndexRecords()
 		MultiIndexHelper::QBRecordCollection result3;
 		MultiIndexHelper::QBFindMatchingRecords(result3, MultiIndexHelper::COLUMNS::COLUMN_3, "424testdata");
 
-		auto nseconds =  static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
 
 #ifdef _DEBUG_
-		std::cout << "multi_index: " << nseconds << std::endl;
+		std::cout << "multi_index: " << millieconds << std::endl;
 #endif
 
-		MultiIndexHelper::m_times.insert(nseconds);
+		MultiIndexHelper::m_times.insert(millieconds);
 	}
 }
 #endif // MULTI_INDEX
@@ -182,13 +191,13 @@ void Menu::DeleteRecords()
 	std::cout << "Size of map container after deletion: " << m_dataMap.size() << std::endl;
 
 	std::cout << "Size of set container before deletion: " << m_dataSet.size() << std::endl;
-	SetHelper::DeleteRecordById(m_dataSet, static_cast<uint32_t>(424));
+	SetHelper::DeleteRecordById(m_dataSet, qbSet::QBRecord(424, "testdata424", 24, "424testdata"));
 	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
 
 #ifdef MULTI_INDEX
-	std::cout << "Size of multi_index container before deletion: " << m_dataSet.size() << std::endl;
+	std::cout << "Size of multi_index container before deletion: " << qbMultiIndex::QBRecordContainer::Get().size() << std::endl;
 	qbMultiIndex::DatabaseInterfaceHelper::DeleteRecordById(static_cast<uint32_t>(424));
-	std::cout << "Size of multi_index container after deletion: " << m_dataSet.size() << std::endl;
+	std::cout << "Size of multi_index container after deletion: " << qbMultiIndex::QBRecordContainer::Get().size() << std::endl;
 #endif
 }
 
