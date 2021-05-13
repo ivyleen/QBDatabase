@@ -51,7 +51,7 @@ void DatabaseInterfaceHelper::PrintStatistics()
 
 	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
 
-	std::cout << "Maximum time: " << *m_times.end() << std::endl;
+	std::cout << "Maximum time: " << *m_times.rbegin() << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 
 void DatabaseInterfaceHelper::DeleteRecordById(QBRecordCollection &records, uint32_t id)
 {
-	int numDeletedElements = records.erase(id);
+	size_t numDeletedElements = records.erase(id);
 	
 	if (!numDeletedElements)
 	{

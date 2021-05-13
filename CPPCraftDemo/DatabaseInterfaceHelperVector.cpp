@@ -40,7 +40,7 @@ void DatabaseInterfaceHelper::PrintStatistics()
 
 	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
 
-	std::cout << "Maximum time: " << *m_times.end() << std::endl;
+	std::cout << "Maximum time: " << *m_times.rbegin() << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
