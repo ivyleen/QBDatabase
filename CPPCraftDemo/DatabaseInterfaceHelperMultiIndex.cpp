@@ -47,16 +47,18 @@ void DatabaseInterfaceHelper::PrintStatistics()
 {
 	std::cout << "Container type: ---- boost::multi_index" << std::endl;
 
+	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.00);
+	std::cout << "Mean avarage: " << static_cast<double>(sum / NUMBER_OF_TEST_LOOPS) << " milliseconds." << std::endl;
+
 	TimeCollectionType::iterator it = m_times.begin();
 	std::advance(it, m_times.size() / 2);
-	std::cout << "Mean avarage: " << *it << std::endl;
+	std::cout << "Median avarage: " << *it << " milliseconds." << std::endl;
 
-	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.0);
-	std::cout << "Medium avarage: " << static_cast<double>(sum/2) << std::endl;
+	std::cout << "Minimum time: " << *m_times.begin() << " milliseconds." << std::endl;
 
-	std::cout << "Minimum time: " << *m_times.begin() << std::endl;
+	std::cout << "Maximum time: " << *m_times.rbegin() << " milliseconds." << std::endl;
 
-	std::cout << "Maximum time: " << *m_times.rbegin() << std::endl;
+	std::cout << "Range time: " << *m_times.rbegin() - *m_times.begin() << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------

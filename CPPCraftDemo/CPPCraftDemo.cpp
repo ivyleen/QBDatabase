@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
 
 	Menu::PrintStatistics();
 
+	Menu::ClearTimes();
+
 	Menu::DeleteRecords();
 
 	Menu::FindVectorRecords();

@@ -218,4 +218,17 @@ void Menu::PopulateRecordCollections()
 #endif
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void Menu::ClearTimes()
+{
+	VectorHelper::m_times.clear();
+	MapHelper::m_times.clear();
+	SetHelper::m_times.clear();
+
+#ifdef MULTI_INDEX
+	MultiIndexHelper::m_times.clear();
+#endif
+}
+
 } // namespace menu

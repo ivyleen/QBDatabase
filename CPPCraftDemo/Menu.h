@@ -60,6 +60,11 @@ struct Menu
 	*/
 	static void PopulateRecordCollections();
 
+	/*
+		ClearTimes clear the stashed times between the tests.
+	*/
+	static void ClearTimes();
+
 private:
 	static VectorHelper::QBRecordCollection m_dataVector;
 	static MapHelper::QBRecordCollection m_dataMap;

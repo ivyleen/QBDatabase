@@ -52,7 +52,7 @@ struct DatabaseInterfaceHelper
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS };
 
-	using TimeCollectionType = std::set<double>;
+	using TimeCollectionType = std::set<double, std::less<>>;
 
 	/**
 		All the unique times for the collection.
