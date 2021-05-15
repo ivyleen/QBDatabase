@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseInterfaceHelperMultiIndex.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="DatabaseInterfaceHelperVector.h" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPPCraftDemo.cpp" />
+    <ClCompile Include="DatabaseInterfaceHelperMultiIndex.cpp" />
     <ClCompile Include="DatabaseInterfaceHelperVector.cpp" />
     <ClCompile Include="DatabaseInterfaceHelperSet.cpp" />
     <ClCompile Include="DatabaseInterfaceHelperMap.cpp" />
