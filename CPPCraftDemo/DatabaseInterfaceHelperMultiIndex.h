@@ -9,6 +9,9 @@
 #include <boost/multi_index/member.hpp>
 #include <boost/range.hpp>
 
+#include <set>
+#include <functional>
+
 namespace qbMultiIndex
 {
 
@@ -92,7 +95,7 @@ private:
 struct DatabaseInterfaceHelper
 {
 	using QBRecordCollection = QBRecordContainer::QBRecordCollection;
-	using TimeCollectionType = std::set<double>;
+	using TimeCollectionType = std::set<double, std::less<>>;
 
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 
