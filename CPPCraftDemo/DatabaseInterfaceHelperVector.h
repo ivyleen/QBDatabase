@@ -21,13 +21,13 @@ struct QBRecord
 		m_column3(column3)
 	{}
 
+	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
+	friend std::ostream& operator<<(std::ostream& os, const QBRecord& rec);
+
 	uint32_t m_column0; // unique id column
 	std::string m_column1;
 	long m_column2;
 	std::string m_column3;
-
-	friend bool operator==(const QBRecord &qbRecord, const uint32_t column0);
-	friend std::ostream& operator<<(std::ostream& os, const QBRecord& rec);
 
 }; // QBRecord
 

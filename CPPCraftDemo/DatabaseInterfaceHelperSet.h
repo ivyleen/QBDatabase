@@ -24,10 +24,13 @@ struct QBRecord
 		m_column3(column3)
 	{}
 
-	uint32_t m_column0; // unique id column
-	std::string m_column1;
-	long m_column2;
-	std::string m_column3;
+	// Noncopyable element.
+	QBRecord(const QBRecord &) = delete;
+	QBRecord &operator=(const QBRecord &) = delete;
+
+	// Use default move constructors.
+	QBRecord(QBRecord &&other) = default;
+	QBRecord &operator=(QBRecord &&) = default;
 
 	// This function is used by the std::set to order elements of QBRecord.
 	friend bool operator<(const QBRecord &lhs, const QBRecord &rhs);
@@ -35,6 +38,11 @@ struct QBRecord
 	friend bool operator<(const QBRecord &lhs, const QBRecord &rhs);
 	// Needed for printing the objects.
 	friend std::ostream& operator<<(std::ostream& os, const QBRecord& rec);
+
+	uint32_t m_column0; // unique id column
+	std::string m_column1;
+	long m_column2;
+	std::string m_column3;
 
 }; // QBRecord
 

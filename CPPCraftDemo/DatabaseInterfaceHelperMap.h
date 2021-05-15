@@ -12,10 +12,10 @@ namespace qbMap
 /**
 	Represents a noncopyable Record Object
 */
-class Record
+class QBRecord
 {
 public:
-	Record(const std::string &column1, const long column2, const std::string &column3) :
+	QBRecord(const std::string &column1, const long column2, const std::string &column3) :
 		m_column1(column1),
 		m_column2(column2),
 		m_column3(column3)
@@ -26,14 +26,14 @@ public:
 	const std::string &GetColumn3() const;
 
 	// Noncopyable element.
-	Record(const Record &) = delete;
-	Record &operator=(const Record &) = delete;
+	QBRecord(const QBRecord &) = delete;
+	QBRecord &operator=(const QBRecord &) = delete;
 
 	// Use default move constructors.
-	Record(Record &&other) = default;
-	Record &operator=(Record &&) = default;
+	QBRecord(QBRecord &&other) = default;
+	QBRecord &operator=(QBRecord &&) = default;
 
-	friend std::ostream &operator<<(std::ostream &os, const Record &rec);
+	friend std::ostream &operator<<(std::ostream &os, const QBRecord &rec);
 
 private:
 	std::string		m_column1;
@@ -62,7 +62,7 @@ struct DatabaseInterfaceHelper
 	/*
 		Represents a noncopyable Record Collections type.
 	*/
-	using QBRecordCollection = std::unordered_map<uint32_t, Record>;
+	using QBRecordCollection = std::unordered_map<uint32_t, QBRecord>;
 
 	/**
 		PrintStatistics prints the mean and medium avarage, minimum and maximum time for every data type.

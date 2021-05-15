@@ -8,23 +8,28 @@
 namespace qbMap
 {
 
-const std::string &Record::GetColumn1() const
+const std::string &QBRecord::GetColumn1() const
 {
 	return m_column1;
 }
 
-long Record::GetColumn2() const
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+long QBRecord::GetColumn2() const
 {
 	return m_column2;
 }
 
-const std::string &Record::GetColumn3() const
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+const std::string &QBRecord::GetColumn3() const
 {
 	return m_column3;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------
 
-std::ostream &operator<<(std::ostream &os, const Record &rec)
+std::ostream &operator<<(std::ostream &os, const QBRecord &rec)
 {
 	os << rec.m_column1 << " " << rec.m_column2 << " " << rec.m_column3;
 	return os;
@@ -63,7 +68,7 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 \
 	for (uint32_t i = 0; i < static_cast<uint32_t>(numRecords); i++)
 	{
-		records.insert(std::make_pair(i, Record(prefix + std::to_string(i), i % 100, std::to_string(i) + prefix)));
+		records.insert(std::make_pair(i, QBRecord(prefix + std::to_string(i), i % 100, std::to_string(i) + prefix)));
 	}
 
 }
@@ -85,7 +90,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 			auto it = resourceRecords.find(matchingNumber);
 			if (it != std::end(resourceRecords))
 			{
-				returnRecords.insert(std::make_pair(it->first, Record((it->second).GetColumn1(), (it->second).GetColumn2(),
+				returnRecords.insert(std::make_pair(it->first, QBRecord((it->second).GetColumn1(), (it->second).GetColumn2(),
 					(it->second).GetColumn3())));
 			}
 
@@ -98,7 +103,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn1() == matchString)
 					{
-						returnRecords.insert(std::make_pair(p.first, Record((p.second).GetColumn1(), (p.second).GetColumn2(),
+						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
 							(p.second).GetColumn3())));
 					}
 				});
@@ -112,7 +117,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn2() == matchingNumber)
 					{
-						returnRecords.insert(std::make_pair(p.first, Record((p.second).GetColumn1(), (p.second).GetColumn2(),
+						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
 							(p.second).GetColumn3())));
 					}
 				});
@@ -125,7 +130,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn3() == matchString)
 					{
-						returnRecords.insert(std::make_pair(p.first, Record((p.second).GetColumn1(), (p.second).GetColumn2(),
+						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
 							(p.second).GetColumn3())));
 					}
 				});
