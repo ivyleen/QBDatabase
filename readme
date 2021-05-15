@@ -22,11 +22,19 @@ The things that need to be taken into account:
 
 The project can run on:
 1) Microsoft Visual Studio 2017 using C++14 opening the solution
+NOTE: if you want to run DatabaseInterfaceHelperMultiIndex.*:
+- install boost library
+- add the path to the library in the solution settings under Properties/VC++ Directories/Include Directories
+- uncomment the define MULTI_INDEX in stdafx.h
+- compile and run
+
 2) Under Linux inside of CPPCraftDemo folder with command:
 - Tests without boost::multi_index:
-g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp Menu.cpp stdafx.cpp  -o app
-
-- Tests with boost::multi_index - first uncomment the define MULTI_INDEX in stdafx.h
+g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp Menu.cpp stdafx.cpp -o app
+- Tests with boost::multi_index:
+  * install boost (https://www.boost.org/doc/libs/1_76_0/more/getting_started/windows.html or sudo apt-get install libboost-all-dev if run on Ubuntu) 
+  * uncomment the define MULTI_INDEX in stdafx.h
+  * compile with command:
 g++ -Wall -std=c++14 CPPCraftDemo.cpp DatabaseInterfaceHelperMap.cpp DatabaseInterfaceHelperSet.cpp DatabaseInterfaceHelperVector.cpp
 DatabaseInterfaceHelperMultiIndex.cpp Menu.cpp stdafx.cpp  -o app
 
