@@ -14,6 +14,10 @@
 #include <assert.h>
 #include <numeric>
 
+#define NUMBER_OF_TEST_LOOPS 1000
+#define NUMBER_OF_ELEMENTS 1000
+#define MULTIPLATOR_BY_MILLISECONDS 1000
+
 //#define MULTI_INDEX
 
 // TODO: reference additional headers your program requires here

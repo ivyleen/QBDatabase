@@ -38,7 +38,7 @@ std::set<double> DatabaseInterfaceHelper::m_times;
 
 void DatabaseInterfaceHelper::PopulateDummyData(const std::string &prefix, int numRecords)
 {
-	QBRecordContainer::PopulateQBRecordMultiIndex(prefix, 1000);
+	QBRecordContainer::PopulateQBRecordMultiIndex(prefix, numRecords);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------

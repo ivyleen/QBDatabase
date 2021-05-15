@@ -24,7 +24,7 @@ void Menu::FindVectorRecords()
 	std::cout << "============== VECTOR ========================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
-	for (int i = 0; i < 1000; ++i)
+	for (int i = 0; i < NUMBER_OF_TEST_LOOPS; ++i)
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
@@ -32,7 +32,7 @@ void Menu::FindVectorRecords()
 		VectorHelper::QBFindMatchingRecords(m_dataVector, result0, VectorHelper::COLUMNS::COLUMN_0, "424");
 
 		VectorHelper::QBRecordCollection result1;
-		VectorHelper::QBFindMatchingRecords(m_dataVector, result1, VectorHelper::COLUMNS::COLUMN_1, "testdata500");
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result1, VectorHelper::COLUMNS::COLUMN_1, "testdata424");
 
 		VectorHelper::QBRecordCollection result2;
 		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_2, "24");
@@ -41,7 +41,8 @@ void Menu::FindVectorRecords()
 		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto millieconds = (static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
+			MULTIPLATOR_BY_MILLISECONDS;
 
 #ifdef _DEBUG_
 		std::cout << "std::vector " << millieconds << " seconds." << std::endl;
@@ -58,7 +59,7 @@ void Menu::FindMapRecords()
 	std::cout << "============== UNORDERED MAP =================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
-	for (int i = 0; i < 1000; ++i)
+	for (int i = 0; i < NUMBER_OF_TEST_LOOPS; ++i)
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
@@ -66,7 +67,7 @@ void Menu::FindMapRecords()
 		MapHelper::QBFindMatchingRecords(m_dataMap, result0, MapHelper::COLUMNS::COLUMN_0, "424");
 
 		MapHelper::QBRecordCollection result1;
-		MapHelper::QBFindMatchingRecords(m_dataMap, result1, MapHelper::COLUMNS::COLUMN_1, "testdata500");
+		MapHelper::QBFindMatchingRecords(m_dataMap, result1, MapHelper::COLUMNS::COLUMN_1, "testdata424");
 
 		MapHelper::QBRecordCollection result2;
 		MapHelper::QBFindMatchingRecords(m_dataMap, result2, MapHelper::COLUMNS::COLUMN_2, "24");
@@ -75,7 +76,8 @@ void Menu::FindMapRecords()
 		MapHelper::QBFindMatchingRecords(m_dataMap, result3, MapHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
+			MULTIPLATOR_BY_MILLISECONDS;
 
 #ifdef _DEBUG_
 		std::cout << "std::map " << millieconds << " seconds." << std::endl;
@@ -92,7 +94,7 @@ void Menu::FindSetRecords()
 	std::cout << "============== SET ===========================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
-	for (int i = 0; i < 1000; ++i)
+	for (int i = 0; i < NUMBER_OF_TEST_LOOPS; ++i)
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
@@ -113,7 +115,8 @@ void Menu::FindSetRecords()
 		SetHelper::QBFindMatchingRecords(m_dataSet, result3, rec3);
 
 		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
+			MULTIPLATOR_BY_MILLISECONDS;
 
 		if (!((result0.size() == result1.size()) == (result2.size() == result3.size())))
 		{
@@ -136,7 +139,7 @@ void Menu::FindMultiIndexRecords()
 	std::cout << "============== MULTI INDEX ===================================================================" << std::endl;
 
 	// Find a record that contains and measure the performance.
-	for (int i = 0; i < 1000; ++i)
+	for (int i = 0; i < NUMBER_OF_TEST_LOOPS; ++i)
 	{
 		auto startTimer = std::chrono::steady_clock::now();
 
@@ -144,7 +147,7 @@ void Menu::FindMultiIndexRecords()
 		MultiIndexHelper::QBFindMatchingRecords(result0, MultiIndexHelper::COLUMNS::COLUMN_0, "424");
 
 		MultiIndexHelper::QBRecordCollection result1;
-		MultiIndexHelper::QBFindMatchingRecords(result1, MultiIndexHelper::COLUMNS::COLUMN_1, "testdata500");
+		MultiIndexHelper::QBFindMatchingRecords(result1, MultiIndexHelper::COLUMNS::COLUMN_1, "testdata424");
 
 		MultiIndexHelper::QBRecordCollection result2;
 		MultiIndexHelper::QBFindMatchingRecords(result2, MultiIndexHelper::COLUMNS::COLUMN_2, "24");
@@ -153,7 +156,8 @@ void Menu::FindMultiIndexRecords()
 		MultiIndexHelper::QBFindMatchingRecords(result3, MultiIndexHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto millieconds =  (static_cast<double>((std::chrono::steady_clock::now() -
-			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) * 1000;
+			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
+			MULTIPLATOR_BY_MILLISECONDS;
 
 #ifdef _DEBUG_
 		std::cout << "multi_index: " << millieconds << std::endl;
@@ -205,12 +209,12 @@ void Menu::DeleteRecords()
 
 void Menu::PopulateRecordCollections()
 {
-	VectorHelper::PopulateDummyData(m_dataVector, "testdata", 1000);
-	MapHelper::PopulateDummyData(m_dataMap, "testdata", 1000);
-	SetHelper::PopulateDummyData(m_dataSet, "testdata", 1000);
+	VectorHelper::PopulateDummyData(m_dataVector, "testdata", NUMBER_OF_ELEMENTS);
+	MapHelper::PopulateDummyData(m_dataMap, "testdata", NUMBER_OF_ELEMENTS);
+	SetHelper::PopulateDummyData(m_dataSet, "testdata", NUMBER_OF_ELEMENTS);
 
 #ifdef MULTI_INDEX
-	MultiIndexHelper::PopulateDummyData("testdata", 1000);
+	MultiIndexHelper::PopulateDummyData("testdata", NUMBER_OF_ELEMENTS);
 #endif
 }
 
