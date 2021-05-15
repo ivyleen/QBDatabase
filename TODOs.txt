@@ -1,17 +1,15 @@
 ===============================================================================
 		TODOs in no particular order
 ===============================================================================
-1. Better handling of the times inside of the set
-2. Make the QBRecord objected noncopyable but use default move constructors
-3. Better handling of the first case
+1. Make the QBRecord objected noncopyable but use default move constructors for std::vector.
+2. Search by column for std::set.
 
 
 
 
 ===============================================================================
-		Things for expansion in no particular order
+		Things for expansion
 ===============================================================================
 
-1. Create a DatabaseInterfaceHelper base class
-2. Put COLUMNs enum class and m_times in the base class
-3. put PrintStatictics in the base class
+1. Create a DatabaseInterfaceHelper base class and make COLUMNs enum class, PrintStatictics and m_times part of it.
+2. Make the menu user friendly (more dynamic with taking choices from user and etc.).
