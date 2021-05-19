@@ -2,7 +2,6 @@
 
 #include "Menu.h"
 
-#include <assert.h>
 #include <chrono>
 #include <iostream>
 #include <algorithm>
@@ -15,6 +14,8 @@ namespace menu
 Menu::VectorHelper::QBRecordCollection Menu::m_dataVector;
 Menu::MapHelper::QBRecordCollection Menu::m_dataMap;
 Menu::SetHelper::QBRecordCollection Menu::m_dataSet;
+
+bool Menu::m_shouldBeFound = true;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +39,7 @@ void Menu::FindVectorRecords()
 		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_2, "24");
 
 		VectorHelper::QBRecordCollection result3;
-		VectorHelper::QBFindMatchingRecords(m_dataVector, result2, VectorHelper::COLUMNS::COLUMN_3, "424testdata");
+		VectorHelper::QBFindMatchingRecords(m_dataVector, result3, VectorHelper::COLUMNS::COLUMN_3, "424testdata");
 
 		auto millieconds = (static_cast<double>((std::chrono::steady_clock::now() -
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
@@ -47,8 +48,9 @@ void Menu::FindVectorRecords()
 #ifdef _DEBUG_
 		std::cout << "std::vector " << millieconds << " seconds." << std::endl;
 #endif
-
 		VectorHelper::m_times.insert(millieconds);
+
+		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
 }
 
@@ -82,8 +84,9 @@ void Menu::FindMapRecords()
 #ifdef _DEBUG_
 		std::cout << "std::map " << millieconds << " seconds." << std::endl;
 #endif
-
 		MapHelper::m_times.insert(millieconds);
+
+		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
 }
 
@@ -118,16 +121,12 @@ void Menu::FindSetRecords()
 			startTimer).count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den) *
 			MULTIPLATOR_BY_MILLISECONDS;
 
-		if (!((result0.size() == result1.size()) == (result2.size() == result3.size())))
-		{
-			assert(true);
-		}
-
 #ifdef _DEBUG_
 		std::cout << "std::set " << millieconds << " seconds." << std::endl;
 #endif
-
 		SetHelper::m_times.insert(millieconds);
+
+		assert((result0.size() == result1.size()) == (result2.size() == result3.size()));
 	}
 }
 
@@ -162,8 +161,9 @@ void Menu::FindMultiIndexRecords()
 #ifdef _DEBUG_
 		std::cout << "multi_index: " << millieconds << std::endl;
 #endif
-
 		MultiIndexHelper::m_times.insert(millieconds);
+
+		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
 }
 #endif // MULTI_INDEX
@@ -186,23 +186,34 @@ void Menu::PrintStatistics()
 
 void Menu::DeleteRecords()
 {
-	std::cout << "Size of vector container before deletion: " << m_dataVector.size() << std::endl;
+	size_t originalSize = m_dataVector.size();
+	std::cout << "Size of vector container before deletion: " << originalSize << std::endl;
 	VectorHelper::DeleteRecordById(m_dataVector, static_cast<uint32_t>(424));
 	std::cout << "Size of vector container after deletion: " << m_dataVector.size() << std::endl;
+	assert(originalSize != m_dataVector.size());
 
-	std::cout << "Size of map container before deletion: " << m_dataMap.size() << std::endl;
+	originalSize = m_dataMap.size();
+	std::cout << "Size of map container before deletion: " << originalSize << std::endl;
 	MapHelper::DeleteRecordById(m_dataMap, static_cast<uint32_t>(424));
 	std::cout << "Size of map container after deletion: " << m_dataMap.size() << std::endl;
+	assert(originalSize != m_dataMap.size());
 
-	std::cout << "Size of set container before deletion: " << m_dataSet.size() << std::endl;
+	originalSize = m_dataSet.size();
+	std::cout << "Size of set container before deletion: " << originalSize << std::endl;
 	SetHelper::DeleteRecordById(m_dataSet, qbSet::QBRecord(424, "testdata424", 24, "424testdata"));
 	std::cout << "Size of set container after deletion: " << m_dataSet.size() << std::endl;
+	assert(originalSize != m_dataSet.size());
 
 #ifdef MULTI_INDEX
-	std::cout << "Size of multi_index container before deletion: " << qbMultiIndex::QBRecordContainer::Get().size() << std::endl;
+	originalSize = qbMultiIndex::QBRecordContainer::Get().size();
+	std::cout << "Size of multi_index container before deletion: " << originalSize << std::endl;
 	qbMultiIndex::DatabaseInterfaceHelper::DeleteRecordById(static_cast<uint32_t>(424));
 	std::cout << "Size of multi_index container after deletion: " << qbMultiIndex::QBRecordContainer::Get().size() << std::endl;
+	assert(originalSize != qbMultiIndex::QBRecordContainer::Get().size());
 #endif
+
+	// When searching for the elements we should not find them.
+	m_shouldBeFound = false;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -210,11 +221,17 @@ void Menu::DeleteRecords()
 void Menu::PopulateRecordCollections()
 {
 	VectorHelper::PopulateDummyData(m_dataVector, "testdata", NUMBER_OF_ELEMENTS);
+	assert(m_dataVector.size() == NUMBER_OF_ELEMENTS);
+
 	MapHelper::PopulateDummyData(m_dataMap, "testdata", NUMBER_OF_ELEMENTS);
+	assert(m_dataMap.size() == NUMBER_OF_ELEMENTS);
+
 	SetHelper::PopulateDummyData(m_dataSet, "testdata", NUMBER_OF_ELEMENTS);
+	assert(m_dataSet.size() == NUMBER_OF_ELEMENTS);
 
 #ifdef MULTI_INDEX
 	MultiIndexHelper::PopulateDummyData("testdata", NUMBER_OF_ELEMENTS);
+	assert(qbMultiIndex::QBRecordContainer::Get().size() == NUMBER_OF_ELEMENTS);
 #endif
 }
 
@@ -229,6 +246,26 @@ void Menu::ClearTimes()
 #ifdef MULTI_INDEX
 	MultiIndexHelper::m_times.clear();
 #endif
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void Menu::UnitTestFindMatches(size_t sizeResult0, size_t sizeResult1, size_t sizeResult2, size_t sizeResult3)
+{
+	if (m_shouldBeFound)
+	{
+		assert(sizeResult0 == 1);
+		assert(sizeResult1 == 1);
+		assert(sizeResult2 == 10);
+		assert(sizeResult3 == 1);
+	}
+	else
+	{
+		assert(sizeResult0 == 0);
+		assert(sizeResult1 == 0);
+		assert(sizeResult2 == 9);
+		assert(sizeResult3 == 0);
+	}
 }
 
 } // namespace menu

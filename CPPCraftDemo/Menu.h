@@ -66,9 +66,16 @@ struct Menu
 	static void ClearTimes();
 
 private:
+	/*
+		UnitTestFindMatches function.
+	*/
+	static void UnitTestFindMatches(size_t sizeResult0, size_t sizeResult1, size_t sizeResult2, size_t sizeResult3);
+
 	static VectorHelper::QBRecordCollection m_dataVector;
 	static MapHelper::QBRecordCollection m_dataMap;
 	static SetHelper::QBRecordCollection m_dataSet;
+
+	static bool m_shouldBeFound;
 };
 
 } // namespace menu
