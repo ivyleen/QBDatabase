@@ -6,7 +6,8 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <string>
+#include <fstream>
+#include <iterator>
 
 namespace menu
 {
@@ -48,7 +49,7 @@ void Menu::FindVectorRecords()
 #ifdef _DEBUG_
 		std::cout << "std::vector " << millieconds << " seconds." << std::endl;
 #endif
-		VectorHelper::m_times.insert(millieconds);
+		VectorHelper::m_times.emplace_back(millieconds);
 
 		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
@@ -84,7 +85,7 @@ void Menu::FindMapRecords()
 #ifdef _DEBUG_
 		std::cout << "std::map " << millieconds << " seconds." << std::endl;
 #endif
-		MapHelper::m_times.insert(millieconds);
+		MapHelper::m_times.emplace_back(millieconds);
 
 		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
@@ -124,9 +125,16 @@ void Menu::FindSetRecords()
 #ifdef _DEBUG_
 		std::cout << "std::set " << millieconds << " seconds." << std::endl;
 #endif
-		SetHelper::m_times.insert(millieconds);
+		SetHelper::m_times.emplace_back(millieconds);
 
-		assert((result0.size() == result1.size()) == (result2.size() == result3.size()));
+		if (m_shouldBeFound)
+		{
+			assert((result0.size() > 0) && (result1.size() > 0) && (result2.size() > 0) && (result3.size() > 0));
+		}
+		else
+		{
+			assert((result0.size() == 0) && (result1.size() == 0) && (result2.size() == 0) && (result3.size() == 0));
+		}
 	}
 }
 
@@ -161,7 +169,7 @@ void Menu::FindMultiIndexRecords()
 #ifdef _DEBUG_
 		std::cout << "multi_index: " << millieconds << std::endl;
 #endif
-		MultiIndexHelper::m_times.insert(millieconds);
+		MultiIndexHelper::m_times.emplace_back(millieconds);
 
 		UnitTestFindMatches(result0.size(), result1.size(), result2.size(), result3.size());
 	}
@@ -265,6 +273,41 @@ void Menu::UnitTestFindMatches(size_t sizeResult0, size_t sizeResult1, size_t si
 		assert(sizeResult1 == 0);
 		assert(sizeResult2 == 9);
 		assert(sizeResult3 == 0);
+	}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+void Menu::DumpTimesIntoFile(std::string file)
+{
+	std::ofstream outputFile(file);
+
+	VectorHelper::TimeCollectionType::iterator vecIt = VectorHelper::m_times.begin();
+	outputFile << "================= VECTOR =================\n";
+	while(vecIt != VectorHelper::m_times.end())
+	{
+		outputFile << *vecIt << "\n";
+		++vecIt;
+	}
+
+	outputFile << "\n";
+
+	MapHelper::TimeCollectionType::iterator mapIt = MapHelper::m_times.begin();
+	outputFile << "================= MAP ====================\n";
+	while (mapIt != MapHelper::m_times.end())
+	{
+		outputFile << *mapIt << "\n";
+		++mapIt;
+	}
+
+	outputFile << "\n";
+
+	SetHelper::TimeCollectionType::iterator setIt = SetHelper::m_times.begin();
+	outputFile << "================= SET ====================\n";
+	while (setIt != SetHelper::m_times.end())
+	{
+		outputFile << *setIt << "\n";
+		++setIt;
 	}
 }
 

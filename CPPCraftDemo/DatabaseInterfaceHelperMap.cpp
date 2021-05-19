@@ -38,27 +38,33 @@ std::ostream &operator<<(std::ostream &os, const QBRecord &rec)
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-std::set<double, std::less<>> DatabaseInterfaceHelper::m_times;
+std::vector<double> DatabaseInterfaceHelper::m_times;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelper::PrintStatistics()
 {
-	std::cout << "Container type: ---- Map" << std::endl;
+	std::sort(m_times.begin(), m_times.end());
+
+	std::cout << "**********************************************" << std::endl;
+
+	std::cout << "* Container type: ---- Unordered map" << std::endl;
 
 	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.00);
-	std::cout << "Mean avarage: " << static_cast<double>(sum / NUMBER_OF_TEST_LOOPS) << " milliseconds." << std::endl;
+	std::cout << "* Mean avarage: " << static_cast<double>(sum / m_times.size()) << " milliseconds." << std::endl;
 
 	TimeCollectionType::iterator it = m_times.begin();
 	std::advance(it, m_times.size() / 2);
-	std::cout << "Median avarage: " << *it << " milliseconds." << std::endl;
+	std::cout << "* Median avarage: " << *it << " milliseconds." << std::endl;
 
-	std::cout << "Minimum time: " << *m_times.begin() << " milliseconds." << std::endl;
+	std::cout << "* Minimum time: " << *m_times.begin() << " milliseconds." << std::endl;
 
-	std::cout << "Maximum time: " << *m_times.rbegin() << " milliseconds." << std::endl;
+	std::cout << "* Maximum time: " << *m_times.rbegin() << " milliseconds." << std::endl;
 
-	std::cout << "Range time: " << *m_times.rbegin() - *m_times.begin() << std::endl;
+	std::cout << "* Range time: " << *m_times.rbegin() - *m_times.begin() << std::endl;
+
+	std::cout << "**********************************************" << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -73,13 +79,12 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
 	const COLUMNS column, const std::string &matchString)
 {
-	if (resourceRecords.empty())
-	{
-		assert(true);
-	}
+	assert(resourceRecords.size() > 0);
 
 	switch (column)
 	{
@@ -90,10 +95,8 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 			auto it = resourceRecords.find(matchingNumber);
 			if (it != std::end(resourceRecords))
 			{
-				returnRecords.insert(std::make_pair(it->first, QBRecord((it->second).GetColumn1(), (it->second).GetColumn2(),
-					(it->second).GetColumn3())));
+				returnRecords.insert(*it);
 			}
-
 			break;
 		}
 		// Search by value.
@@ -103,8 +106,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn1() == matchString)
 					{
-						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
-							(p.second).GetColumn3())));
+						returnRecords.insert(p);
 					}
 				});
 			break;
@@ -117,8 +119,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn2() == matchingNumber)
 					{
-						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
-							(p.second).GetColumn3())));
+						returnRecords.insert(p);
 					}
 				});
 			break;
@@ -130,8 +131,7 @@ void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &re
 				{
 					if (p.second.GetColumn3() == matchString)
 					{
-						returnRecords.insert(std::make_pair(p.first, QBRecord((p.second).GetColumn1(), (p.second).GetColumn2(),
-							(p.second).GetColumn3())));
+						returnRecords.insert(p);
 					}
 				});
 			break;

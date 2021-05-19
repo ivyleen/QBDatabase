@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <numeric>
+#include <string>
 
 #define NUMBER_OF_TEST_LOOPS 1000
 #define NUMBER_OF_ELEMENTS 1000

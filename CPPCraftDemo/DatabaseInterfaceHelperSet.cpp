@@ -30,27 +30,33 @@ std::ostream& operator<<(std::ostream& os, const QBRecord& rec)
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-std::set<double, std::less<>> DatabaseInterfaceHelper::m_times;
+std::vector<double> DatabaseInterfaceHelper::m_times;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 void DatabaseInterfaceHelper::PrintStatistics()
 {
-	std::cout << "Container type: ---- Set" << std::endl;
+	std::sort(m_times.begin(), m_times.end());
+
+	std::cout << "**********************************************" << std::endl;
+
+	std::cout << "* Container type: ---- Set" << std::endl;
 
 	double sum = std::accumulate(m_times.begin(), m_times.end(), 0.00);
-	std::cout << "Mean avarage: " << static_cast<double>(sum / NUMBER_OF_TEST_LOOPS) << " milliseconds." << std::endl;
+	std::cout << "* Mean avarage: " << static_cast<double>(sum / m_times.size()) << " milliseconds." << std::endl;
 
 	TimeCollectionType::iterator it = m_times.begin();
 	std::advance(it, m_times.size() / 2);
-	std::cout << "Median avarage: " << *it << " milliseconds." << std::endl;
+	std::cout << "* Median avarage: " << *it << " milliseconds." << std::endl;
 
-	std::cout << "Minimum time: " << *m_times.begin() << " milliseconds." << std::endl;
+	std::cout << "* Minimum time: " << *m_times.begin() << " milliseconds." << std::endl;
 
-	std::cout << "Maximum time: " << *m_times.rbegin() << " milliseconds." << std::endl;
+	std::cout << "* Maximum time: " << *m_times.rbegin() << " milliseconds." << std::endl;
 
-	std::cout << "Range time: " << *m_times.rbegin() - *m_times.begin() << std::endl;
+	std::cout << "* Range time: " << *m_times.rbegin() - *m_times.begin() << std::endl;
+
+	std::cout << "**********************************************" << std::endl;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -68,16 +74,13 @@ void DatabaseInterfaceHelper::PopulateDummyData(QBRecordCollection &records, con
 void DatabaseInterfaceHelper::QBFindMatchingRecords(const QBRecordCollection &resourceRecords, QBRecordCollection &returnRecords,
 	const QBRecord& rec)
 {
-	if (resourceRecords.empty())
-	{
-		assert(true);
-	}
+	assert(resourceRecords.size() > 0);
 
-	auto found = resourceRecords.find(rec);
-	if (found == resourceRecords.end())
+	QBRecordCollection::iterator found = resourceRecords.find(rec);
+	if (found != resourceRecords.end())
 	{
-		assert(true);
-	}
+		returnRecords.insert(*found);
+	}	
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------

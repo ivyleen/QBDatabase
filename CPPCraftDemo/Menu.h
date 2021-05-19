@@ -65,6 +65,12 @@ struct Menu
 	*/
 	static void ClearTimes();
 
+	/*
+		DumpTimesIntoFile function.
+		@param file the name of the file in which the times will be dumped.
+	*/
+	static void DumpTimesIntoFile(std::string file);
+
 private:
 	/*
 		UnitTestFindMatches function.

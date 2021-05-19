@@ -2,14 +2,12 @@
 #include "stdafx.h"
 
 #ifdef MULTI_INDEX
-#include <string>
-
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/member.hpp>
 #include <boost/range.hpp>
 
-#include <set>
+#include <vector>
 #include <functional>
 
 namespace qbMultiIndex
@@ -95,7 +93,7 @@ private:
 struct DatabaseInterfaceHelper
 {
 	using QBRecordCollection = QBRecordContainer::QBRecordCollection;
-	using TimeCollectionType = std::set<double, std::less<>>;
+	using TimeCollectionType = std::vector<double>;
 
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 

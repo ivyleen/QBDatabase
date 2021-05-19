@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 
 	Menu::PrintStatistics();
 
+	Menu::DumpTimesIntoFile("DumpedTimes.txt");
 	Menu::ClearTimes();
 
 	Menu::DeleteRecords();

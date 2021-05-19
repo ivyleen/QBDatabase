@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
 #include <unordered_map>
-
-#include <set>
+#include <vector>
 
 
 namespace qbMap
@@ -25,14 +23,6 @@ public:
 	long GetColumn2() const;
 	const std::string &GetColumn3() const;
 
-	// Noncopyable element.
-	QBRecord(const QBRecord &) = delete;
-	QBRecord &operator=(const QBRecord &) = delete;
-
-	// Use default move constructors.
-	QBRecord(QBRecord &&other) = default;
-	QBRecord &operator=(QBRecord &&) = default;
-
 	friend std::ostream &operator<<(std::ostream &os, const QBRecord &rec);
 
 private:
@@ -52,7 +42,7 @@ struct DatabaseInterfaceHelper
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS };
 
-	using TimeCollectionType = std::set<double, std::less<>>;
+	using TimeCollectionType = std::vector<double>;
 
 	/**
 		All the unique times for the collection.

@@ -1,12 +1,9 @@
 #pragma once
 
-#include <string>
-
-#include <set>
-#include <chrono>
+#include <vector>
 #include <functional>
 #include <tuple>
-
+#include <set>
 
 // Encapsulation in namespace
 namespace qbSet
@@ -23,14 +20,6 @@ struct QBRecord
 		m_column2(column2),
 		m_column3(column3)
 	{}
-
-	// Noncopyable element.
-	QBRecord(const QBRecord &) = delete;
-	QBRecord &operator=(const QBRecord &) = delete;
-
-	// Use default move constructors.
-	QBRecord(QBRecord &&other) = default;
-	QBRecord &operator=(QBRecord &&) = default;
 
 	// This function is used by the std::set to order elements of QBRecord.
 	friend bool operator<(const QBRecord &lhs, const QBRecord &rhs);
@@ -56,7 +45,7 @@ struct DatabaseInterfaceHelper
 {
 	enum class COLUMNS { COLUMN_0 = 0, COLUMN_1, COLUMN_2, COLUMN_3, NUMBER_OF_COLUMNS};
 
-	using TimeCollectionType = std::set<double, std::less<>>;
+	using TimeCollectionType = std::vector<double>;
 
 	/**
 		All the unique times for the collection.
